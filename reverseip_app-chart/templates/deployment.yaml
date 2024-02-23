@@ -24,9 +24,6 @@ spec:
           value: {{ .Values.db.password }}
         ports:
         - containerPort: 5432
-        volumeMounts:
-        - name: {{ .Values.postgresVolumeName }}
-          mountPath: /var/lib/postgresql/data
         resources:
           limits:
             cpu: "0.5"  # 0.5 CPU cores
@@ -57,7 +54,3 @@ spec:
           requests:
             cpu: "0.1"  # 0.1 CPU cores
             memory: "256Mi"  # 256MB RAM
-      volumes:
-      - name: {{ .Values.postgresVolumeName }}
-        persistentVolumeClaim:
-          claimName: {{ .Values.postgresClaimName }}
