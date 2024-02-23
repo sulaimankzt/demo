@@ -37,15 +37,15 @@ spec:
         - containerPort: 5000
         env:
         - name: DB_HOST
-          value: {{ .Values.db.host }}
+          value: "{{ .Values.db.host }}"
         - name: DB_PORT
-          value: {{ .Values.db.port }}
+          value: "{{ .Values.db.port }}"
         - name: DB_USER
-          value: {{ .Values.db.user }}
+          value: "{{ .Values.db.user }}"
         - name: DB_PASSWORD
-          value: {{ .Values.db.password }}
+          value: "{{ .Values.db.password }}"
         - name: DB_NAME
-          value: {{ .Values.db.name }}
+          value: "{{ .Values.db.name }}"
         command: ["python", "app.py"]
         resources:
           limits:
