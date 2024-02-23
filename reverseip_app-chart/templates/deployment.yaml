@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: postgres-container
+        image: postgres:latest
+        env:
+        - name: POSTGRES_DB
+          value: {{ .Values.db.name }}
+        - name: POSTGRES_USER
+          value: {{ .Values.db.user }}
+        - name: POSTGRES_PASSWORD
+          value: {{ .Values.db.password }}
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: {{ .Values.postgresVolumeName }}
+          mountPath: /var/lib/postgresql/data
+        resources:
+          limits:
+            cpu: "0.5"  # 0.5 CPU cores
+            memory: "512Mi"  # 512MB RAM
+          requests:
+            cpu: "0.1"  # 0.1 CPU cores
+            memory: "256Mi"  # 256MB RAM
+      - name: flask-app-container
+        image: {{ .Values.image }}
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DB_HOST
+          value: {{ .Values.db.host }}
+        - name: DB_PORT
+          value: {{ .Values.db.port }}
+        - name: DB_USER
+          value: {{ .Values.db.user }}
+        - name: DB_PASSWORD
+          value: {{ .Values.db.password }}
+        - name: DB_NAME
+          value: {{ .Values.db.name }}
+        command: ["python", "app.py"]
+        resources:
+          limits:
+            cpu: "0.5"  # 0.5 CPU cores
+            memory: "512Mi"  # 512MB RAM
+          requests:
+            cpu: "0.1"  # 0.1 CPU cores
+            memory: "256Mi"  # 256MB RAM
+      volumes:
+      - name: {{ .Values.postgresVolumeName }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.postgresClaimName }}

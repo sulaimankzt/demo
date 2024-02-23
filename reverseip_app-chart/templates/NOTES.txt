@@ -1,0 +1,12 @@
+Deployment Notes:
+
+1. Verify PostgreSQL database is running before deployment.
+2. Check environment variables for database connection.
+3. Access Flask app via NodePort service or cloud based LoadBalancer
+4. Monitor logs for errors during runtime.
+5. Test app functionality and performance.
+6. Scale resources based on usage.
+7. Keep deployment files updated.
+8. Implement security measures.
+9. Have a rollback plan in case of issues.
+10. Document custom configurations.
