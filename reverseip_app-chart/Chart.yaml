@@ -1,0 +1,6 @@
+apiVersion: v2
+name: reverse_ip
+description: A Helm chart for deploying a Python app that captures your ip and reverses it then stores it in PostgreSQL database
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
