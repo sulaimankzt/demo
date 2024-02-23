@@ -9,7 +9,7 @@ db:
   port: "5432"
 
 # Image configuration
-image: sulakzt/reverse_ip
+image: sulakzt/reverse_ip:latest
 
 # Persistent Volume and Persistent Volume Claim names
 postgresVolumeName: postgres-storage
